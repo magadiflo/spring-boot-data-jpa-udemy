@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 
-@Repository
+@Repository("clienteDaoJPA") //Agregamos el nombre, solo por si hay más de una implementación
 public class ClienteDaoImpl implements IClienteDao {
 
 	//Al no haber configuración de persistencia, por defecto usará la BD H2 cuya dependencia está en el pom.xml
