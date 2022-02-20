@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,12 +28,17 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotEmpty
 	private String nombre;
 
+	@NotEmpty
 	private String apellido;
 
+	@NotEmpty
+	@Email
 	private String email;
 
+	@NotNull
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE) //Formato en la que se va a guardar en la tabla de la BD. Ejmpl. solo la fecha, sino tiempo
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
