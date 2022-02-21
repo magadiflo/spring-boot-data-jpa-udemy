@@ -20,7 +20,7 @@
 					</ul>
 				</div>
 				<form th:action="@{/form}" th:object="${cliente}" method="POST" autocomplete="off">
-					<input type="hidden" th:field="*{id}">
+					<!-- <input type="hidden" th:field="*{id}"> Lo comentamos, ya que usamos para esto sessiones que está en el controlador -->
 					<div class="mb-3">
 						<label for="nombre" class="form-label">Nombre</label> 
 						<input type="text" class="form-control" th:field="*{nombre}">
