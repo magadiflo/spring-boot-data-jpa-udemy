@@ -17,19 +17,19 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.bolsadeideas.springboot.app.models.dao.IClienteDao;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
+import com.bolsadeideas.springboot.app.models.services.IClienteService;
 
 @Controller
 @SessionAttributes("cliente") //Guardaremos en el atributo de la sessión el objeto cliente
 public class ClienteController {
 
 	@Autowired
-	@Qualifier("clienteDaoJPA")
-	private IClienteDao clienteDao;
+	private IClienteService clienteService;
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Listado de clientes");
-		model.addAttribute("clientes", this.clienteDao.findAll());
+		model.addAttribute("clientes", this.clienteService.findAll());
 		return "listar";
 	}
 
@@ -51,7 +51,7 @@ public class ClienteController {
 	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
 		Cliente cliente = null;
 		if(id > 0) {
-			cliente = this.clienteDao.findOne(id);			
+			cliente = this.clienteService.findOne(id);			
 		} else {
 			return "redirect:/listar";
 		}
@@ -66,7 +66,7 @@ public class ClienteController {
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "form";
 		}
-		this.clienteDao.save(cliente);
+		this.clienteService.save(cliente);
 		status.setComplete();//Eliminamos el objeto cliente de la sessión
 		return "redirect:/listar";
 	}
@@ -74,7 +74,7 @@ public class ClienteController {
 	@RequestMapping(value = "/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
 		if(id > 0) {
-			this.clienteDao.delete(id);
+			this.clienteService.delete(id);
 		}
 		return "redirect:/listar";
 	}
